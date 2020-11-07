@@ -1,8 +1,10 @@
 export {
   apiType,
-  issuerType,
-  generateIssuerType,
+  issuer,
+  generateIssuer,
   location,
   phoneNumber,
-  id
+  id,
+  item,
+  generateItem
 } from "./types";

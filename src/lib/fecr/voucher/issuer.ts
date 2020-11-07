@@ -1,12 +1,7 @@
-import {
-  issuerType,
-  generateIssuerType,
-  location,
-  phoneNumber
-} from "../../../types";
+import { issuer, generateIssuer, location, phoneNumber } from "../../../types";
 
 export class Issuer {
-  constructor(issuer: issuerType) {
+  constructor(issuer: issuer) {
     this.name = issuer.name;
     this.idType = issuer.idType;
     this.id = issuer.id;
@@ -27,7 +22,7 @@ export class Issuer {
   email: string;
 
   generate() {
-    const obj = {} as generateIssuerType;
+    const obj = {} as generateIssuer;
     obj.Nombre = this.name;
     obj.Identificación = { Tipo: this.idType, Numero: this.id };
     if (this.commercialName) {
