@@ -1,29 +1,28 @@
 {
-  "name": "fecr",
+  "name": "fecr-ts",
   "version": "1.4.7",
   "description": "Modulo de comprobantes electrónicos para el API del Ministerio de Hacienda de Costa Rica versión 4.3",
-  "main": "build/fecr.js",
+  "main": "dist/fecr.js",
   "scripts": {
-    "prebuild": "npm run lint",
-    "build": "babel lib --out-dir build",
-    "lint": "eslint --fix lib/*",
-    "fix": "eslint --fix lib/*",
+    "watch": "npx tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/redaBits/fecr.git"
+    "url": "git+https://github.com/jquesada2016/fecr.git"
   },
   "keywords": [
     "Factura",
-    "Electronica"
+    "Electronica",
+    "Hacienda",
+    "CAByS"
   ],
-  "author": "José Daniel Pérez Castañeda",
+  "author": "Jose Quesada",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/redaBits/fecr/issues"
+    "url": "https://github.com/jquesada2016/fecr/issues"
   },
-  "homepage": "https://github.com/redaBits/fecr#readme",
+  "homepage": "https://github.com/jquesada2016/fecr#readme",
   "dependencies": {
     "@peculiar/webcrypto": "^1.0.22",
     "axios": "^0.19.2",
@@ -36,12 +35,6 @@
     "xmldom-alpha": "^0.1.28"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-transform-runtime": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.1"
+    "typescript": "^4.0.5"
   }
 }
