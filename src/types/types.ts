@@ -15,7 +15,7 @@ export type issuerType = {
   commercialName: string;
   location: location;
   phone: phoneNumber;
-  fax: phoneNumber;
+  fax?: phoneNumber;
   email: string;
 };
 export type generateIssuerType = {

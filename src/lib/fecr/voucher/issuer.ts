@@ -23,7 +23,7 @@ export class Issuer {
   commercialName: string;
   location: location;
   phone: phoneNumber;
-  fax: phoneNumber;
+  fax?: phoneNumber;
   email: string;
 
   generate() {
