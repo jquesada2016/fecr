@@ -18,15 +18,6 @@ export type issuer = {
   fax?: phoneNumber;
   email: string;
 };
-export type generateIssuer = {
-  Nombre: string;
-  Identificación: id;
-  NombreComercial: string;
-  Ubicación: location;
-  Teléfono: phoneNumber;
-  Fax: phoneNumber;
-  CorreoElectrónico: string;
-};
 
 export type item = {
   number: string;
@@ -49,6 +40,20 @@ export type item = {
   netTotal: number;
 };
 
+export type others = {
+  text: string;
+};
+
+export type generateIssuer = {
+  Nombre: string;
+  Identificación: id;
+  NombreComercial: string;
+  Ubicación: location;
+  Teléfono: phoneNumber;
+  Fax: phoneNumber;
+  CorreoElectrónico: string;
+};
+
 export type generateItem = {
   NumeroLinea: string;
   Codigo: string;
@@ -67,6 +72,10 @@ export type generateItem = {
   Impuesto: number;
   ImpuestoNeto: number;
   MontoTotalLinea: number;
+};
+
+export type generateOthers = {
+  OtroTexto: string;
 };
 
 export type location = {

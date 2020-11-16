@@ -6,5 +6,7 @@ export {
   phoneNumber,
   id,
   item,
-  generateItem
+  generateItem,
+  others,
+  generateOthers
 } from "./types";
