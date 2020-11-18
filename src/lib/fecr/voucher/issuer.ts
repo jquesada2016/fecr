@@ -1,10 +1,34 @@
-import { issuer, generateIssuer, location, phoneNumber } from "../../../types";
+import {
+  issuer,
+  generateIssuer,
+  location,
+  phoneNumber,
+  id
+} from "../../../types";
 
 export class Issuer {
   constructor(issuer: issuer) {
     this.name = issuer.name;
-    this.idType = issuer.idType;
-    this.id = issuer.id;
+    switch (issuer.idType) {
+      case "fisica": {
+        this.id.Tipo = "01";
+        break;
+      }
+      case "juridica": {
+        this.id.Tipo = "02";
+        break;
+      }
+      case "DIMEX": {
+        this.id.Tipo = "03";
+        break;
+      }
+      case "NITE": {
+        this.id.Tipo = "04";
+        break;
+      }
+    }
+
+    this.id.Numero = issuer.id;
     this.commercialName = issuer.commercialName;
     this.location = issuer.location;
     this.phone = issuer.phone;
@@ -13,38 +37,39 @@ export class Issuer {
   }
 
   name: string;
-  idType: string;
-  id: string;
-  commercialName: string;
+  id: id;
+  commercialName?: string;
   location: location;
-  phone: phoneNumber;
+  phone?: phoneNumber;
   fax?: phoneNumber;
   email: string;
 
   generate() {
     const obj = {} as generateIssuer;
     obj.Nombre = this.name;
-    obj.Identificación = { Tipo: this.idType as "01", Numero: this.id };
+    obj.Identificacion = this.id;
     if (this.commercialName) {
       obj.NombreComercial = this.commercialName;
     }
-    obj.Ubicación = {
+    obj.Ubicacion = {
       Provincia: this.location.Provincia,
       Canton: this.location.Canton,
       Distrito: this.location.Distrito,
       OtrasSenas: this.location.OtrasSenas
     };
-    obj.Teléfono = {
-      CodigoPais: this.phone.CodigoPais,
-      NumTelefono: this.phone.NumTelefono
-    };
+    if (this.phone) {
+      obj.Telefono = {
+        CodigoPais: this.phone.CodigoPais,
+        NumTelefono: this.phone.NumTelefono
+      };
+    }
     if (this.fax) {
       obj.Fax = {
         CodigoPais: this.fax.CodigoPais,
         NumTelefono: this.fax.NumTelefono
       };
     }
-    obj.CorreoElectrónico = this.email;
+    obj.CorreoElectronico = this.email;
     return obj;
   }
 }

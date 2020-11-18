@@ -13,10 +13,10 @@ export type apiType = {
 export type issuer = {
   name: string;
   idType: string;
-  id: string;
-  commercialName: string;
+  id: "fisica" | "juridica" | "DIMEX" | "NITE";
+  commercialName?: string;
   location: location;
-  phone: phoneNumber;
+  phone?: phoneNumber;
   fax?: phoneNumber;
   email: string;
 };
@@ -63,12 +63,12 @@ export type receiver = {
 
 export type generateIssuer = {
   Nombre: string;
-  Identificación: id;
-  NombreComercial: string;
-  Ubicación: location;
-  Teléfono: phoneNumber;
-  Fax: phoneNumber;
-  CorreoElectrónico: string;
+  Identificacion: id;
+  NombreComercial?: string;
+  Ubicacion: location;
+  Telefono?: phoneNumber;
+  Fax?: phoneNumber;
+  CorreoElectronico: string;
 };
 
 export type generateItem = {
