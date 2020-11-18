@@ -10,5 +10,6 @@ export {
   others,
   generateOthers,
   receiver,
-  generateReceiver
+  generateReceiver,
+  idType
 } from "./types";

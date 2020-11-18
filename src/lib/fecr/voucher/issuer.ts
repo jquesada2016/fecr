@@ -9,25 +9,6 @@ import {
 export class Issuer {
   constructor(issuer: issuer) {
     this.name = issuer.name;
-    switch (issuer.idType) {
-      case "fisica": {
-        this.id.Tipo = "01";
-        break;
-      }
-      case "juridica": {
-        this.id.Tipo = "02";
-        break;
-      }
-      case "DIMEX": {
-        this.id.Tipo = "03";
-        break;
-      }
-      case "NITE": {
-        this.id.Tipo = "04";
-        break;
-      }
-    }
-
     this.id.Numero = issuer.id;
     this.commercialName = issuer.commercialName;
     this.location = issuer.location;

@@ -9,11 +9,10 @@ export type apiType = {
   refreshExpires?: number;
 };
 
-/** @todo: need to cross verify with XSD document to guerantee the validity fields*/
 export type issuer = {
   name: string;
   idType: string;
-  id: "fisica" | "juridica" | "DIMEX" | "NITE";
+  id: idType;
   commercialName?: string;
   location: location;
   phone?: phoneNumber;
@@ -23,7 +22,7 @@ export type issuer = {
 
 /** @todo: need to cross verify with XSD document to guerantee the validity fields*/
 export type item = {
-  number: string;
+  number: number;
   hsCode?: string;
   code?: string;
   typeCommercialCode?: string;
@@ -51,7 +50,7 @@ export type others = {
 export type receiver = {
   name: string;
   idType: string;
-  id: "fisica" | "juridica" | "DIMEX" | "NITE";
+  id: idType;
   foreignId?: string;
   comercialName?: string;
   location?: location;
@@ -72,7 +71,7 @@ export type generateIssuer = {
 };
 
 export type generateItem = {
-  NumeroLinea: string;
+  NumeroLinea: number;
   Codigo: string;
   CodigoComercial: { Tipo: string; Codigo: string };
   Cantidad: number;
@@ -115,4 +114,14 @@ export type location = {
   OtrasSenas: string;
 };
 export type phoneNumber = { CodigoPais: "506"; NumTelefono: string };
-export type id = { Tipo: "01" | "02" | "03" | "04"; Numero: string };
+export type id = { Tipo: idType; Numero: string };
+export type comercialCode = {
+  tipo: " ";
+};
+
+export enum idType {
+  Fisica = "01",
+  Juridica = "02",
+  DIMEX = "03",
+  NITE = "04"
+}

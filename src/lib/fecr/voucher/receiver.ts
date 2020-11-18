@@ -9,24 +9,6 @@ import {
 export class Receiver {
   constructor(receiver: receiver) {
     this.name = receiver.name;
-    switch (receiver.idType) {
-      case "fisica": {
-        this.id.Tipo = "01";
-        break;
-      }
-      case "juridica": {
-        this.id.Tipo = "02";
-        break;
-      }
-      case "DIMEX": {
-        this.id.Tipo = "03";
-        break;
-      }
-      case "NITE": {
-        this.id.Tipo = "04";
-        break;
-      }
-    }
     this.id.Numero = receiver.id;
     if (receiver.foreignId) {
       this.foreignId = receiver.foreignId;
