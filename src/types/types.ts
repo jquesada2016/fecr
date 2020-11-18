@@ -33,7 +33,7 @@ export type item = {
   discount?: discount;
   subtotal: number;
   taxBase?: number;
-  taxes?: tax[];
+  taxes?: tax;
   taxNet?: number;
   netTotal: number;
 };
@@ -78,7 +78,7 @@ export type generateItem = {
   Descuento?: discount;
   SubTotal: number;
   BaseImponible: number;
-  Impuesto: tax[];
+  Impuesto: tax;
   ImpuestoNeto?: number;
   MontoTotalLinea: number;
 };
@@ -117,7 +117,7 @@ export type tax = {
   FactorIVA: number;
   Monto: number;
   Exoneracion: exoneration;
-};
+}[];
 export type taxRatePercentage = 0 | 0.01 | 0.02 | 0.04 | 0.08 | 0.13;
 export type exoneration = {
   TipoDocumento: ExonerationdocumentType;

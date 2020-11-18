@@ -54,7 +54,7 @@ export class Item {
   discount?: discount;
   subtotal: number;
   taxBase: number;
-  taxes: tax[];
+  taxes: tax;
   taxNet?: number;
   netTotal: number;
 
