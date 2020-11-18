@@ -111,6 +111,7 @@ export type location = {
   Provincia: string;
   Canton: string;
   Distrito: string;
+  Barrio?: string;
   OtrasSenas: string;
 };
 export type phoneNumber = { CodigoPais: "506"; NumTelefono: string };
