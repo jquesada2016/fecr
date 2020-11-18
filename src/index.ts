@@ -1,3 +1,3 @@
-import fecr from "./lib/fecr";
+// import fecr from "./lib/fecr";
 
-export default fecr;
+// export default fecr;

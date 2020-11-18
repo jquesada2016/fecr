@@ -24,7 +24,7 @@ export class Issuer {
   generate() {
     const obj = {} as generateIssuer;
     obj.Nombre = this.name;
-    obj.Identificación = { Tipo: this.idType, Numero: this.id };
+    obj.Identificación = { Tipo: this.idType as "01", Numero: this.id };
     if (this.commercialName) {
       obj.NombreComercial = this.commercialName;
     }

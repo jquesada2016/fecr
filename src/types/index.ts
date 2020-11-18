@@ -8,5 +8,7 @@ export {
   item,
   generateItem,
   others,
-  generateOthers
+  generateOthers,
+  receiver,
+  generateReceiver
 } from "./types";

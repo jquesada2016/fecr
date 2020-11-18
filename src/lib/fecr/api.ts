@@ -110,6 +110,7 @@ export class Api {
       axios
         .post(this.authEndpoint, qs.stringify(data), { headers })
         .then((response) => {
+          console.log(response.data);
           this.token = response.data.access_token;
           this.expires = Date.now() + response.data.expires_in * 1000;
           this.refresh = response.data.refresh_token;
@@ -137,6 +138,7 @@ export class Api {
       axios
         .post(this.authEndpoint, qs.stringify(data), { headers })
         .then((response) => {
+          console.log(response.data);
           this.token = response.data.access_token;
           this.expires = Date.now() + response.data.expires_in * 1000;
           this.refresh = response.data.refresh_token;
