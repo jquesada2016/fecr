@@ -1,4 +1,11 @@
-import { item, generateItem } from "../../../types";
+import {
+  item,
+  generateItem,
+  discount,
+  unidadMedida,
+  commercialCodeType,
+  tax
+} from "../../../types";
 
 export class Item {
   constructor(item: item) {
@@ -6,29 +13,27 @@ export class Item {
     if (item.hsCode) {
       this.hsCode = item.hsCode;
     }
-    if (item.code) {
-      this.code = item.code;
-    }
+    this.hsCode = item.hsCode;
+
     if (item.commercialCode) {
-      this.typeCommercialCode = item.typeCommercialCode
-        ? item.typeCommercialCode
-        : "04";
-      this.commercialCode = item.commercialCode;
+      this.typeCommercialCode = item.commercialCode.Tipo;
+      this.commercialCode = item.commercialCode.Codigo;
     }
     this.quantity = item.quantity;
-    this.unit = item.unit;
-    if (item.commercialUnit) {
-      this.commercialUnit = item.commercialUnit;
+    this.units = item.units;
+    if (item.commercialUnits) {
+      this.commercialUnits = item.commercialUnits;
     }
-    this.description = item.description;
+    this.description = item.detail;
     this.unitPrice = item.unitPrice;
     this.total = item.total;
     if (item.discount) {
       this.discount = item.discount;
-      this.discountReason = item.discountReason;
     }
     this.subtotal = item.subtotal;
-    this.taxBase = item.taxBase;
+    if (item.taxBase) {
+      this.taxBase = item.taxBase;
+    }
     if (item.taxes) {
       this.taxes = item.taxes;
     }
@@ -36,47 +41,42 @@ export class Item {
     this.netTotal = item.netTotal;
   }
 
-  number: string;
-  hsCode?: string;
-  code?: string;
-  typeCommercialCode?: string;
+  number: number;
+  hsCode: string;
+  typeCommercialCode?: commercialCodeType;
   commercialCode?: string;
   quantity: number;
-  unit: string;
-  commercialUnit: string;
+  units: unidadMedida;
+  commercialUnits?: string;
   description: string;
   unitPrice: number;
   total: number;
-  discount?: number;
-  discountReason?: string;
+  discount?: discount;
   subtotal: number;
   taxBase: number;
-  taxes: any;
+  taxes: tax[];
   taxNet?: number;
   netTotal: number;
 
   generate() {
     const obj = {} as generateItem;
     obj.NumeroLinea = this.number;
-    if (this.code) {
-      obj.Codigo = this.code;
+    if (this.hsCode) {
+      obj.Codigo = this.hsCode;
     }
-    if (this.commercialCode) {
+    if (this.commercialCode && this.typeCommercialCode) {
       obj.CodigoComercial = {
-        Tipo: this.typeCommercialCode!,
+        Tipo: this.typeCommercialCode,
         Codigo: this.commercialCode
       };
     }
     obj.Cantidad = this.quantity;
-    obj.UnidadMedida = this.unit;
+    obj.UnidadMedida = this.units;
     obj.Detalle = this.description;
     obj.PrecioUnitario = this.unitPrice;
     obj.MontoTotal = this.total;
     if (this.discount) {
-      obj.Descuento = {
-        MontoDescuento: this.discount,
-        NaturalezaDescuento: this.discountReason!
-      };
+      obj.Descuento = this.discount;
     }
     obj.SubTotal = this.subtotal;
     obj.BaseImponible = this.taxBase;

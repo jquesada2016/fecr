@@ -11,5 +11,9 @@ export {
   generateOthers,
   receiver,
   generateReceiver,
-  idType
+  idType,
+  unidadMedida,
+  discount,
+  commercialCodeType,
+  tax
 } from "./types";
