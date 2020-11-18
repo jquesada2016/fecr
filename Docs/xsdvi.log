@@ -1,0 +1,19 @@
+Nov 17, 2020 7:26:50 PM xsdvi.XsdVi printUsage
+SEVERE: 
+USAGE:
+java -jar xsdvi.jar <input1.xsd> [<input2.xsd> [<input3.xsd> ...]] [style]
+  STYLE:
+    -embodyStyle                css style will be embodied in each svg file, this is default
+    -generateStyle <style.css>  new css file with specified name will be generated and used by svgs
+    -useStyle      <style.css>  external css file at specified url will be used by svgs
+
+Nov 17, 2020 7:28:01 PM xsdvi.XsdVi main
+INFO: The style will be embodied
+Nov 17, 2020 7:28:01 PM xsdvi.XsdVi main
+INFO: Parsing .\FacturaElectronica_V4.3.xsd...
+Nov 17, 2020 7:28:17 PM xsdvi.XsdVi main
+INFO: Processing XML Schema model...
+Nov 17, 2020 7:28:17 PM xsdvi.XsdVi main
+INFO: Drawing SVG FacturaElectronica_V4.3.svg...
+Nov 17, 2020 7:28:17 PM xsdvi.XsdVi main
+INFO: Done.
