@@ -8,10 +8,15 @@ import {
 export class Reference {
   constructor(reference: reference) {
     this.documentType = reference.documentType;
-    this.number = reference.number;
+    if (this.number)
+      if (reference.number?.length === 50) this.number = reference.number;
+      else throw new Error("reference number must be 50 characters in length");
     this.date = reference.date;
-    this.code = reference.code;
-    this.reason = reference.reason;
+    if (this.code) this.code = reference.code;
+    if (reference.reason)
+      if (reference.reason.length <= 180) this.reason = reference.reason;
+      else
+        throw new Error("reference reason must be <= 180 characters in length");
   }
 
   documentType: referenceDocumentType;
@@ -23,10 +28,10 @@ export class Reference {
   generate() {
     const obj = {} as generateReference;
     obj.TipoDoc = this.documentType;
-    obj.Numero = this.number;
+    if (this.number) obj.Numero = this.number;
     obj.FechaEmision = this.date;
-    obj.Codigo = this.code;
-    obj.Razon = this.reason;
+    if (this.code) obj.Codigo = this.code;
+    if (this.reason) obj.Razon = this.reason;
     return obj;
   }
 }
