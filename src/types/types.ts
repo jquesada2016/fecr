@@ -43,7 +43,7 @@ export type item = {
 };
 
 export type others = {
-  text: string;
+  text: string[];
 };
 
 export type receiver = {
@@ -65,6 +65,27 @@ export type reference = {
   date: string;
   code?: referenceCode;
   reason?: string;
+};
+
+export type summary = {
+  currency: string;
+  exchangeRate: string;
+  servicesTaxableTotal: string;
+  servicesExentTotal: string;
+  servicesExoneTotal: string;
+  goodsTaxableTotal: string;
+  goodsExentTotal: string;
+  goodsExoneTotal: string;
+  taxableTotal: string;
+  exentTotal: string;
+  exoneTotal: string;
+  subtotal: string;
+  discountTotal: string;
+  grossTotal: string;
+  taxTotal: string;
+  vatReturned: string;
+  otherChargesTotal: string;
+  netTotal: string;
 };
 
 /* ==============================================================================
@@ -100,7 +121,7 @@ export type generateItem = {
 };
 
 export type generateOthers = {
-  OtroTexto: string;
+  OtroTexto: string[];
 };
 
 export type generateReceiver = {
@@ -128,16 +149,19 @@ export type generateReference = {
    ============================================================================== */
 
 export type location = {
-  Provincia: string;
-  Canton: string;
-  Distrito: string;
-  Barrio?: string;
+  Provincia: number;
+  Canton: number;
+  Distrito: number;
+  Barrio?: number;
   OtrasSenas: string;
 };
 export type phoneNumber = { CodigoPais: "506"; NumTelefono: string };
 export type id = { Tipo: idType; Numero: string };
-export type commercialCode = { Tipo: commercialCodeType; Codigo?: string };
-export type discount = { MontoDescuento: number; NaturalezaDescuento: string };
+export type commercialCode = { Tipo: commercialCodeType; Codigo?: string }[];
+export type discount = {
+  MontoDescuento: number;
+  NaturalezaDescuento: string;
+}[];
 export type tax = {
   Codigo: taxCode;
   CodigoTarifa: taxCodeRate;

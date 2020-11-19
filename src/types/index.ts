@@ -19,5 +19,6 @@ export {
   reference,
   generateReference,
   referenceDocumentType,
-  referenceCode
+  referenceCode,
+  summary
 } from "./types";
