@@ -1,4 +1,8 @@
-/** @todo: need to cross verify with XSD document to guerantee the validity fields*/
+/* ==============================================================================
+                              Class Input Types
+   ============================================================================== */
+
+/** @todo: need to cross verify with XSD document to guarantee the validity fields*/
 export type apiType = {
   user: string;
   pass: string;
@@ -55,6 +59,18 @@ export type receiver = {
   email?: string;
 };
 
+export type reference = {
+  documentType: referenceDocumentType;
+  number?: string;
+  date: string;
+  code?: referenceCode;
+  reason?: string;
+};
+
+/* ==============================================================================
+                                      Class Return Types
+   ============================================================================== */
+
 export type generateIssuer = {
   Nombre: string;
   Identificacion: id;
@@ -99,6 +115,18 @@ export type generateReceiver = {
   CorreoElectronico?: string;
 };
 
+export type generateReference = {
+  TipoDoc: referenceDocumentType;
+  Numero?: string;
+  FechaEmision: string;
+  Codigo?: referenceCode;
+  Razon?: string;
+};
+
+/* ==============================================================================
+                                      Data Types
+   ============================================================================== */
+
 export type location = {
   Provincia: string;
   Canton: string;
@@ -127,6 +155,10 @@ export type exoneration = {
   PorcentajeExoneracion: number;
   MontoExoneracion: number;
 };
+
+/* ==============================================================================
+                                      Enum Types
+   ============================================================================== */
 
 export enum idType {
   Fisica = "01",
@@ -172,6 +204,37 @@ export enum ExonerationdocumentType {
   TransitorioIX = "06",
   TransitorioXVII = "07",
   Otros = "99"
+}
+export enum referenceDocumentType {
+  FacturaElectronica = "01",
+  NotaDebitoElectronica = "02",
+  NotaCreditoElectronica = "03",
+  TiqueteElectronico = "04",
+  NotaDespacho = "05",
+  Contrato = "06",
+  Procedimiento = "07",
+  ComprobanteContigencia = "08",
+  DevolucionMercaderia = "09",
+  FacturaRechazadaHacienda = "10",
+  FacturaElectronicaComprobante = "11",
+  FacturaExportacion = "12",
+  FacturacionMesVendido = "13",
+  Otros = "99"
+}
+// Código de referencia.
+// 01 Anula documento de referencia,
+// 02 Corrige texto de documento de referencia,
+// 03 Corrige monto,
+// 04 Referencia a otro documento,
+// 05 Sustituye comprobante provisional por contigencia,
+// 99 Otros
+export enum referenceCode {
+  NullifyReferencedDocument = "01",
+  CorrectReferencedDocumentText = "02",
+  CorrectAmount = "03",
+  ReferenceOtherDocument = "04",
+  SubstituteProvisionalReceipt = "05",
+  Others = "99"
 }
 
 export type unidadMedida =

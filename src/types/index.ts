@@ -15,5 +15,9 @@ export {
   unidadMedida,
   discount,
   commercialCodeType,
-  tax
+  tax,
+  reference,
+  generateReference,
+  referenceDocumentType,
+  referenceCode
 } from "./types";
