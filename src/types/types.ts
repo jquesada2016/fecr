@@ -207,6 +207,18 @@ export type pem = {
   key: string;
   chain: string;
 };
+export type keyPair = {
+  key: string;
+  x509: string;
+};
+export type p12 = {
+  path: string;
+  pass: string;
+};
+export type signXmlStringOptions = {
+  keyPair: keyPair;
+  p12: p12;
+};
 
 /* ==============================================================================
                                       Enum Types

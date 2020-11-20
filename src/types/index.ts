@@ -23,5 +23,8 @@ export {
   summary,
   generateSummary,
   currency,
-  pem
+  pem,
+  keyPair,
+  p12,
+  signXmlStringOptions
 } from "./types";
