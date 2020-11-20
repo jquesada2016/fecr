@@ -67,25 +67,25 @@ export type reference = {
   reason?: string;
 };
 
+/** @todo Need to check fields to make sure the constructor aligns with documentation */
 export type summary = {
-  currency: string;
-  exchangeRate: string;
-  servicesTaxableTotal: string;
-  servicesExentTotal: string;
-  servicesExoneTotal: string;
-  goodsTaxableTotal: string;
-  goodsExentTotal: string;
-  goodsExoneTotal: string;
-  taxableTotal: string;
-  exentTotal: string;
-  exoneTotal: string;
-  subtotal: string;
-  discountTotal: string;
-  grossTotal: string;
-  taxTotal: string;
-  vatReturned: string;
-  otherChargesTotal: string;
-  netTotal: string;
+  currency: currency;
+  servicesTaxableTotal?: number;
+  servicesExemptTotal?: number;
+  servicesExoneratedTotal?: number;
+  goodsTaxableTotal?: number;
+  goodsExemptTotal?: number;
+  goodsExoneratedTotal?: number;
+  taxableTotal?: number;
+  ExemptTotal?: number;
+  ExoneratedTotal?: number;
+  subtotal: number;
+  discountTotal?: number;
+  grossTotal: number;
+  taxTotal?: number;
+  IVAReturned?: number;
+  otherChargesTotal?: number;
+  netTotal: number;
 };
 
 /* ==============================================================================
@@ -144,6 +144,26 @@ export type generateReference = {
   Razon?: string;
 };
 
+export type generateSummary = {
+  CodigoTipoMoneda?: currency;
+  TotalServGravados: number;
+  TotalServExemptos: number;
+  TotalServExonerado: number;
+  TotalMercanciasGravadas: number;
+  TotalMercanciasExentos: number;
+  TotalMercExoneratedrada: number;
+  TotalGravado: number;
+  TotalExempto: number;
+  TotalExonerado: number;
+  TotalVenta: number;
+  TotalDescuentos: number;
+  TotalVentaNeta: number;
+  TotalImpuesto: number;
+  TotalIVADevuelto?: number;
+  TotalOtrosCargos: number;
+  TotalComprobante: number;
+};
+
 /* ==============================================================================
                                       Data Types
    ============================================================================== */
@@ -172,12 +192,16 @@ export type tax = {
 }[];
 export type taxRatePercentage = 0 | 0.01 | 0.02 | 0.04 | 0.08 | 0.13;
 export type exoneration = {
-  TipoDocumento: ExonerationdocumentType;
+  TipoDocumento: ExoneratedrationdocumentType;
   NumeroDocumento: string;
   NombreInstitucion: string;
   FechaEmision: string;
-  PorcentajeExoneracion: number;
-  MontoExoneracion: number;
+  PorcentajeExoneratedracion: number;
+  MontoExoneratedracion: number;
+};
+export type currency = {
+  CodigoMoneda: currencyCode;
+  TipoCambio: number;
 };
 
 /* ==============================================================================
@@ -210,7 +234,7 @@ export enum taxCode {
   Otros = "99"
 }
 export enum taxCodeRate {
-  Exento = "01",
+  Exempto = "01",
   UnoPorciento = "02",
   DosPorciento = "03",
   CuatroPorciento = "04",
@@ -219,7 +243,7 @@ export enum taxCodeRate {
   TransitorioOchoPorciento = "07",
   TarifaGeneralTrecePorciento = "08"
 }
-export enum ExonerationdocumentType {
+export enum ExoneratedrationdocumentType {
   ComprasAutorizadas = "01",
   ExemptSalesToDiplomats = "02",
   SpecialLaw = "03",
@@ -358,3 +382,183 @@ export type unidadMedida =
   | "mm"
   | "Oz"
   | "Otros";
+
+export type currencyCode =
+  | "AED"
+  | "AFN"
+  | "ALL"
+  | "AMD"
+  | "ANG"
+  | "AOA"
+  | "ARS"
+  | "AUD"
+  | "AWG"
+  | "AZN"
+  | "BAM"
+  | "BBD"
+  | "BDT"
+  | "BGN"
+  | "BHD"
+  | "BIF"
+  | "BMD"
+  | "BND"
+  | "BOB"
+  | "BOV"
+  | "BRL"
+  | "BSD"
+  | "BTN"
+  | "BWP"
+  | "BYR"
+  | "BZD"
+  | "CAD"
+  | "CDF"
+  | "CHE"
+  | "CHF"
+  | "CHW"
+  | "CLF"
+  | "CLP"
+  | "CNY"
+  | "COP"
+  | "COU"
+  | "CRC"
+  | "CUC"
+  | "CUP"
+  | "CVE"
+  | "CZK"
+  | "DJF"
+  | "DKK"
+  | "DOP"
+  | "DZD"
+  | "EGP"
+  | "ERN"
+  | "ETB"
+  | "EUR"
+  | "FJD"
+  | "FKP"
+  | "GBP"
+  | "GEL"
+  | "GHS"
+  | "GIP"
+  | "GMD"
+  | "GNF"
+  | "GTQ"
+  | "GYD"
+  | "HKD"
+  | "HNL"
+  | "HRK"
+  | "HTG"
+  | "HUF"
+  | "IDR"
+  | "ILS"
+  | "INR"
+  | "IQD"
+  | "IRR"
+  | "ISK"
+  | "JMD"
+  | "JOD"
+  | "JPY"
+  | "KES"
+  | "KGS"
+  | "KHR"
+  | "KMF"
+  | "KPW"
+  | "KRW"
+  | "KWD"
+  | "KYD"
+  | "KZT"
+  | "LAK"
+  | "LBP"
+  | "LKR"
+  | "LRD"
+  | "LSL"
+  | "LYD"
+  | "MAD"
+  | "MDL"
+  | "MGA"
+  | "MKD"
+  | "MMK"
+  | "MNT"
+  | "MOP"
+  | "MRO"
+  | "MUR"
+  | "MVR"
+  | "MWK"
+  | "MXN"
+  | "MXV"
+  | "MYR"
+  | "MZN"
+  | "NAD"
+  | "NGN"
+  | "NIO"
+  | "NOK"
+  | "NPR"
+  | "NZD"
+  | "OMR"
+  | "PAB"
+  | "PEN"
+  | "PGK"
+  | "PHP"
+  | "PKR"
+  | "PLN"
+  | "PYG"
+  | "QAR"
+  | "RON"
+  | "RSD"
+  | "RUB"
+  | "RWF"
+  | "SAR"
+  | "SBD"
+  | "SCR"
+  | "SDG"
+  | "SEK"
+  | "SGD"
+  | "SHP"
+  | "SLL"
+  | "SOS"
+  | "SRD"
+  | "SSP"
+  | "STD"
+  | "SVC"
+  | "SYP"
+  | "SZL"
+  | "THB"
+  | "TJS"
+  | "TMT"
+  | "TND"
+  | "TOP"
+  | "TRY"
+  | "TTD"
+  | "TWD"
+  | "TZS"
+  | "UAH"
+  | "UGX"
+  | "USD"
+  | "USN"
+  | "UYI"
+  | "UYU"
+  | "UZS"
+  | "VEF"
+  | "VND"
+  | "VUV"
+  | "WST"
+  | "XAF"
+  | "XAG"
+  | "XAU"
+  | "XBA"
+  | "XBB"
+  | "XBC"
+  | "XBD"
+  | "XCD"
+  | "XDR"
+  | "XOF"
+  | "XPD"
+  | "XPF"
+  | "XPT"
+  | "XSU"
+  | "XTS"
+  | "XUA"
+  | "XXX"
+  | "YER"
+  | "ZAR"
+  | "ZMW"
+  | "ZWL";

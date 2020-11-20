@@ -20,5 +20,7 @@ export {
   generateReference,
   referenceDocumentType,
   referenceCode,
-  summary
+  summary,
+  generateSummary,
+  currency
 } from "./types";
