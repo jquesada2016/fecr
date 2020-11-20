@@ -1,4 +1,4 @@
-import { pem } from "../../types";
+import { pem, keyPair } from "../../types";
 
 const openssl = require("openssl-nodejs");
 const fs = require("fs");
@@ -80,7 +80,7 @@ export const signer = {
    * @param pass
    */
   getKeyPair(p12Path: string, pass: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise<keyPair>((resolve, reject) => {
       this.copyFileP12(p12Path)
         .then((newPath) => this.p12ToPemString(newPath, pass))
         .then((pem) => {
