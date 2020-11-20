@@ -22,5 +22,6 @@ export {
   referenceCode,
   summary,
   generateSummary,
-  currency
+  currency,
+  pem
 } from "./types";

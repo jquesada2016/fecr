@@ -203,6 +203,10 @@ export type currency = {
   CodigoMoneda: currencyCode;
   TipoCambio: number;
 };
+export type pem = {
+  key: string;
+  chain: string;
+};
 
 /* ==============================================================================
                                       Enum Types
