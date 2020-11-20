@@ -5,11 +5,11 @@ export class Others {
     this.text = others.text;
   }
 
-  text: string;
+  text: string[];
 
   generate() {
     const obj = {} as generateOthers;
-    obj.OtroTexto = this.text;
+    obj.OtroTexto = [...this.text];
     return obj;
   }
 }
