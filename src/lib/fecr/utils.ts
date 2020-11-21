@@ -22,9 +22,9 @@ export default {
   },
   zfill(number: string | number, width: number) {
     const numberOutput = Math.abs(
-      number as number
+      Number(number)
     ); /* Valor absoluto del número */
-    const { length } = number.toString(); /* Largo del número */
+    const { length } = Number(number).toString(); /* Largo del número */
     const zero = "0"; /* String de cero */
 
     if (width <= length) {
