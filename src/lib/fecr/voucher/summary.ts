@@ -1,6 +1,6 @@
 import { summary, currency, generateSummary } from "../../../types";
 
-class Summary {
+export class Summary {
   constructor(summary: summary) {
     this.currency = summary.currency.CodigoMoneda
       ? summary.currency
@@ -91,5 +91,3 @@ class Summary {
     return obj;
   }
 }
-
-module.exports = Summary;
