@@ -2,6 +2,9 @@
                               Class Input Types
    ============================================================================== */
 
+import { Api } from "../lib/fecr/api";
+import { Issuer } from "../lib/fecr/voucher/issuer";
+
 /** @todo: need to cross verify with XSD document to guarantee the validity fields*/
 export type apiType = {
   user: string;
@@ -65,6 +68,29 @@ export type reference = {
   date: string;
   code?: referenceCode;
   reason?: string;
+};
+
+export type voucher = {
+  cert: string;
+  api: typeof Api;
+  date: string;
+  issuer: typeof Issuer;
+  headquarters: number;
+  terminal: number;
+  number: number;
+  situation: string;
+  activityCode: string;
+  securityCode: string;
+  receiver: string;
+  condition: string;
+  paymentType: string;
+  creditTerm: string;
+  items: string;
+  otherCharges: string;
+  summary: string;
+  generateSummary: string;
+  references: string;
+  others: string;
 };
 
 /** @todo Need to check fields to make sure the constructor aligns with documentation */
@@ -215,7 +241,7 @@ export type p12 = {
   path: string;
   pass: string;
 };
-export type signXmlStringOptions = {
+export type cert = {
   keyPair: keyPair;
   p12: p12;
 };

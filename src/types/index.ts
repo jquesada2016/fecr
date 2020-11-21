@@ -26,5 +26,6 @@ export {
   pem,
   keyPair,
   p12,
-  signXmlStringOptions
+  cert,
+  voucher
 } from "./types";

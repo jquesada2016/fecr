@@ -1,7 +1,8 @@
 import { Crypto } from "@peculiar/webcrypto";
+
 import xadesjs from "xadesjs";
 import { XMLSerializer } from "xmldom-alpha";
-import { keyPair, signXmlStringOptions } from "../../types/types.js";
+import { keyPair, cert } from "../../types/types.js";
 import pkcs12 from "./pkcs12.js";
 
 const crypto = new Crypto();
@@ -68,7 +69,7 @@ async function signFromKeyPair(keyPair: keyPair, xmlString: string) {
   return sXML.toString(); /**/
 }
 
-export const signXmlString = (xml: string, options: signXmlStringOptions) =>
+export const signXmlString = (xml: string, options: cert) =>
   new Promise<string>((resolve, reject) => {
     const { keyPair } = options;
     const { p12 } = options;
