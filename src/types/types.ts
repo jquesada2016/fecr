@@ -4,6 +4,11 @@
 
 import { Api } from "../lib/fecr/api";
 import { Issuer } from "../lib/fecr/voucher/issuer";
+import { Item } from "../lib/fecr/voucher/item";
+import { Others } from "../lib/fecr/voucher/others";
+import { Receiver } from "../lib/fecr/voucher/receiver";
+import { Reference } from "../lib/fecr/voucher/reference";
+import { Summary } from "../lib/fecr/voucher/summary";
 
 /** @todo: need to cross verify with XSD document to guarantee the validity fields*/
 export type apiType = {
@@ -71,26 +76,25 @@ export type reference = {
 };
 
 export type voucher = {
-  cert: string;
+  cert: cert;
   api: typeof Api;
   date: string;
   issuer: typeof Issuer;
   headquarters: number;
   terminal: number;
   number: number;
-  situation: string;
+  situation: documentSituation;
   activityCode: string;
   securityCode: string;
-  receiver: string;
-  condition: string;
-  paymentType: string;
-  creditTerm: string;
-  items: string;
-  otherCharges: string;
-  summary: string;
-  generateSummary: string;
-  references: string;
-  others: string;
+  receiver: typeof Receiver;
+  condition: saleCondition;
+  paymentType: paymentType[];
+  creditTerm?: string;
+  items?: typeof Item[];
+  otherCharges?: otherCharges;
+  summary: typeof Summary;
+  references?: typeof Reference;
+  others?: typeof Others;
 };
 
 /** @todo Need to check fields to make sure the constructor aligns with documentation */
@@ -246,6 +250,15 @@ export type cert = {
   p12: p12;
 };
 
+export type otherCharges = {
+  TipoDocumento: otherChargesDocumentType;
+  NumeroIdentidadTercero?: string;
+  NombreTercero?: string;
+  Detalle: string;
+  Porcentaje?: number;
+  MontoCargo: number;
+};
+
 /* ==============================================================================
                                       Enum Types
    ============================================================================== */
@@ -324,6 +337,51 @@ export enum referenceCode {
   CorrectAmount = "03",
   ReferenceOtherDocument = "04",
   SubstituteProvisionalReceipt = "05",
+  Others = "99"
+}
+export enum documentType {
+  FacturaElectronica = "01",
+  NotaDebito = "02",
+  NotaCredito = "03",
+  TiqueteElectronico = "04",
+  ConfirmacionRecepcion = "05",
+  ConfirmacionAcceptacion = "06",
+  ConfirmacionRechazo = "07",
+  FacturaElectronicaCompras = "08",
+  FacturaElectronicaExportacion = "09"
+}
+export enum documentSituation {
+  Normal = "01",
+  Contingency = "02",
+  NoInternet = "03"
+}
+export enum saleCondition {
+  Contado = "01",
+  Credito = "02",
+  Consignacion = "03",
+  Apartado = "04",
+  ArrendamientoConOpcionCompra = "05",
+  ArrendamientoFuncionFinanciera = "06",
+  CobroFavorTercero = "07",
+  ServiciosPrestadosAlEstado = "08",
+  PagoServicioPrestado = "90",
+  Otros = "99"
+}
+export enum paymentType {
+  Cash = "01",
+  CreditDebitCard = "02",
+  Check = "03",
+  BankTransforDeposit = "04",
+  Terceros = "05"
+}
+export enum otherChargesDocumentType {
+  ContribucionFiscal = "01",
+  TimbreCruzRoja = "02",
+  TimbreBomberos = "03",
+  Tercero = "04",
+  Exportacion = "05",
+  ImpuestoServicioDiesPorciento = "06",
+  TimbreColegiosPrefecionales = "07",
   Others = "99"
 }
 

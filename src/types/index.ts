@@ -27,5 +27,10 @@ export {
   keyPair,
   p12,
   cert,
-  voucher
+  voucher,
+  documentType,
+  documentSituation,
+  saleCondition,
+  paymentType,
+  otherCharges
 } from "./types";
