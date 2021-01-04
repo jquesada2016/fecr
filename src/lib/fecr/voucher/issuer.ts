@@ -3,7 +3,7 @@ import {
   generateIssuer,
   location,
   phoneNumber,
-  id
+  id,
 } from "../../../types";
 
 export class Issuer {
@@ -14,20 +14,20 @@ export class Issuer {
     if (matchId && matchId[0] === issuer.id) this.id.Numero = issuer.id;
     else
       throw new Error(
-        "issuer ID number must be between 9 and 13 digits in length"
+        "issuer ID number must be between 9 and 13 digits in length",
       );
     if (issuer.commercialName)
       if (issuer.commercialName?.length <= 80)
         this.commercialName = issuer.commercialName;
       else
         throw new Error(
-          "issuer commercialName must be <= 80 characters in length"
+          "issuer commercialName must be <= 80 characters in length",
         );
-    if (issuer.location.OtrasSenas.length <= 250)
+    if (issuer.location.OtrasSenas && issuer.location.OtrasSenas.length <= 250)
       this.location = issuer.location;
     else
       throw new Error(
-        "issuer location OtrasSenas must be <= 250 characters in length"
+        "issuer location OtrasSenas must be <= 250 characters in length",
       );
     if (issuer.phone) {
       const countryCodeMatch = issuer.phone.CodigoPais.match(/\d{3}/g);
@@ -62,7 +62,7 @@ export class Issuer {
       this.email = issuer.email;
     else
       throw new Error(
-        "issuer email address must be <= 160 characters in length, and must match the regular expression"
+        "issuer email address must be <= 160 characters in length, and must match the regular expression",
       );
   }
 
@@ -85,18 +85,18 @@ export class Issuer {
       Provincia: this.location.Provincia,
       Canton: this.location.Canton,
       Distrito: this.location.Distrito,
-      OtrasSenas: this.location.OtrasSenas
+      OtrasSenas: this.location.OtrasSenas,
     };
     if (this.phone) {
       obj.Telefono = {
         CodigoPais: this.phone.CodigoPais,
-        NumTelefono: this.phone.NumTelefono
+        NumTelefono: this.phone.NumTelefono,
       };
     }
     if (this.fax) {
       obj.Fax = {
         CodigoPais: this.fax.CodigoPais,
-        NumTelefono: this.fax.NumTelefono
+        NumTelefono: this.fax.NumTelefono,
       };
     }
     obj.CorreoElectronico = this.email;

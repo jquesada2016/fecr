@@ -95,6 +95,8 @@ export type voucher = {
   summary: typeof Summary;
   references?: typeof Reference;
   others?: typeof Others;
+  sequence?: string;
+  key?: string;
 };
 
 /** @todo Need to check fields to make sure the constructor aligns with documentation */
@@ -203,7 +205,7 @@ export type location = {
   Canton: number;
   Distrito: number;
   Barrio?: number;
-  OtrasSenas: string;
+  OtrasSenas?: string;
 };
 export type phoneNumber = { CodigoPais: "506"; NumTelefono: string };
 export type id = { Tipo: idType; Numero: string };
@@ -267,14 +269,14 @@ export enum idType {
   Fisica = "01",
   Juridica = "02",
   DIMEX = "03",
-  NITE = "04"
+  NITE = "04",
 }
 export enum commercialCodeType {
   Vendedor = "01",
   Comprador = "02",
   Industria = "03",
   Interno = "04",
-  Otro = "99"
+  Otro = "99",
 }
 export enum taxCode {
   ValorAgregado = "01",
@@ -286,7 +288,7 @@ export enum taxCode {
   IVACalculoEspecial = "07",
   IVABienesUsados = "08",
   Cemento = "09",
-  Otros = "99"
+  Otros = "99",
 }
 export enum taxCodeRate {
   Exempto = "01",
@@ -296,7 +298,7 @@ export enum taxCodeRate {
   TransitorioCeroPorciento = "05",
   TransitorioCuatroPorciento = "06",
   TransitorioOchoPorciento = "07",
-  TarifaGeneralTrecePorciento = "08"
+  TarifaGeneralTrecePorciento = "08",
 }
 export enum ExoneratedrationdocumentType {
   ComprasAutorizadas = "01",
@@ -306,7 +308,7 @@ export enum ExoneratedrationdocumentType {
   TransitorioV = "05",
   TransitorioIX = "06",
   TransitorioXVII = "07",
-  Otros = "99"
+  Otros = "99",
 }
 export enum referenceDocumentType {
   FacturaElectronica = "01",
@@ -322,7 +324,7 @@ export enum referenceDocumentType {
   FacturaElectronicaComprobante = "11",
   FacturaExportacion = "12",
   FacturacionMesVendido = "13",
-  Otros = "99"
+  Otros = "99",
 }
 // Código de referencia.
 // 01 Anula documento de referencia,
@@ -337,7 +339,7 @@ export enum referenceCode {
   CorrectAmount = "03",
   ReferenceOtherDocument = "04",
   SubstituteProvisionalReceipt = "05",
-  Others = "99"
+  Others = "99",
 }
 export enum documentType {
   FacturaElectronica = "01",
@@ -348,12 +350,12 @@ export enum documentType {
   ConfirmacionAcceptacion = "06",
   ConfirmacionRechazo = "07",
   FacturaElectronicaCompras = "08",
-  FacturaElectronicaExportacion = "09"
+  FacturaElectronicaExportacion = "09",
 }
 export enum documentSituation {
   Normal = "01",
   Contingency = "02",
-  NoInternet = "03"
+  NoInternet = "03",
 }
 export enum saleCondition {
   Contado = "01",
@@ -365,14 +367,14 @@ export enum saleCondition {
   CobroFavorTercero = "07",
   ServiciosPrestadosAlEstado = "08",
   PagoServicioPrestado = "90",
-  Otros = "99"
+  Otros = "99",
 }
 export enum paymentType {
   Cash = "01",
   CreditDebitCard = "02",
   Check = "03",
   BankTransforDeposit = "04",
-  Terceros = "05"
+  Terceros = "05",
 }
 export enum otherChargesDocumentType {
   ContribucionFiscal = "01",
@@ -382,7 +384,7 @@ export enum otherChargesDocumentType {
   Exportacion = "05",
   ImpuestoServicioDiesPorciento = "06",
   TimbreColegiosPrefecionales = "07",
-  Others = "99"
+  Others = "99",
 }
 
 export type unidadMedida =

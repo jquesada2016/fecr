@@ -3,7 +3,7 @@ import {
   id,
   location,
   phoneNumber,
-  receiver
+  receiver,
 } from "../../../types";
 
 export class Receiver {
@@ -15,7 +15,7 @@ export class Receiver {
     if (matchId && matchId[0] === receiver.id) this.id.Numero = receiver.id;
     else
       throw new Error(
-        "receiver ID number must be between 9 and 13 digits in length"
+        "receiver ID number must be between 9 and 13 digits in length",
       );
     if (receiver.foreignId) {
       if (receiver.foreignId.length <= 20) this.foreignId = receiver.foreignId;
@@ -27,15 +27,18 @@ export class Receiver {
         this.comercialName = receiver.comercialName;
       else
         throw Error(
-          "receiver commercialName must be <= 80 characters in length"
+          "receiver commercialName must be <= 80 characters in length",
         );
     }
     if (receiver.location) {
-      if (receiver.location.OtrasSenas.length <= 250)
+      if (
+        receiver.location.OtrasSenas &&
+        receiver.location.OtrasSenas.length <= 250
+      )
         this.location = receiver.location;
       else
         throw new Error(
-          "receiver location OtrasSenas must be <= 250 characters in length"
+          "receiver location OtrasSenas must be <= 250 characters in length",
         );
       this.location = { ...receiver.location };
     }
@@ -44,7 +47,7 @@ export class Receiver {
         this.foreignOthers = receiver.foreignOthers;
       else
         throw new Error(
-          "receiver foreignOthers must be <= 300 characters in length"
+          "receiver foreignOthers must be <= 300 characters in length",
         );
     }
     if (receiver.phone) {
@@ -86,7 +89,7 @@ export class Receiver {
         this.email = receiver.email;
       else
         throw new Error(
-          "receiver email address must be <= 160 characters in length, and must match the regular expression"
+          "receiver email address must be <= 160 characters in length, and must match the regular expression",
         );
     }
   }
@@ -120,13 +123,13 @@ export class Receiver {
     if (this.phone) {
       obj.Telefono = {
         CodigoPais: this.phone.CodigoPais,
-        NumTelefono: this.phone.NumTelefono
+        NumTelefono: this.phone.NumTelefono,
       };
     }
     if (this.fax) {
       obj.Fax = {
         CodigoPais: this.fax.CodigoPais,
-        NumTelefono: this.fax.NumTelefono
+        NumTelefono: this.fax.NumTelefono,
       };
     }
     if (this.email) {
