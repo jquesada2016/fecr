@@ -10,7 +10,7 @@ import {
   generateOthers,
   generateReference,
   paymentType,
-  saleCondition
+  saleCondition,
 } from "../../types";
 import { Api } from "./api";
 import { Issuer } from "./voucher/issuer";
@@ -87,13 +87,13 @@ export class Voucher {
   sequence: string;
   rootTag: any;
   voucherType: string;
-  namespaces: string;
+  namespaces: { [key: string]: string };
 
   buildXml() {
     const voucher = {
       [this.rootTag]: {
-        $: this.namespaces
-      }
+        $: this.namespaces,
+      },
     } as any;
     voucher[this.rootTag].Clave = this.key;
     voucher[this.rootTag].CodigoActividad = this.activityCode;
@@ -232,7 +232,7 @@ export class Voucher {
       otherChargesTotal,
       subtotal: 0,
       grossTotal: 0,
-      netTotal: 0
+      netTotal: 0,
     });
   }
 
@@ -259,13 +259,13 @@ export class Voucher {
       fecha: this.date.format(),
       emisor: {
         tipoIdentificacion: this.issuer.id.Tipo,
-        numeroIdentificacion: this.issuer.id
-      }
+        numeroIdentificacion: this.issuer.id,
+      },
     } as any;
     if (this.receiver) {
       payload.receptor = {
         tipoIdentificacion: this.receiver.id.Tipo,
-        numeroIdentificacion: this.receiver.id
+        numeroIdentificacion: this.receiver.id,
       };
     }
     payload.comprobanteXml = this.signedXmlBase64;
