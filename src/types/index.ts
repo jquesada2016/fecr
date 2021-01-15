@@ -1,5 +1,5 @@
 export {
-  apiType,
+  api,
   issuer,
   generateIssuer,
   location,
@@ -32,5 +32,6 @@ export {
   documentSituation,
   saleCondition,
   paymentType,
-  otherCharges
+  otherCharges,
+  issueDocument,
 } from "./types";

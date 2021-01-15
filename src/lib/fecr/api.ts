@@ -1,9 +1,9 @@
 import axios from "axios";
 import qs from "querystring";
-import { apiType } from "../../types";
+import { api } from "../../types";
 
 export class Api {
-  constructor(api: apiType) {
+  constructor(api: api) {
     this.user = api.user;
     this.pass = api.pass;
     this.environment = api.environment ? api.environment : "stag";
@@ -101,11 +101,11 @@ export class Api {
         username: this.user,
         password: this.pass,
         client_secret: "",
-        scope: ""
+        scope: "",
       };
       const headers = {
         "Content-Type": "application/x-www-form-urlencoded",
-        charset: "utf-8"
+        charset: "utf-8",
       };
       axios
         .post(this.authEndpoint, qs.stringify(data), { headers })
@@ -129,11 +129,11 @@ export class Api {
       const data = {
         grant_type: "refresh_token",
         client_id: this.clientId,
-        refresh_token: this.refresh
+        refresh_token: this.refresh,
       };
       const headers = {
         "Content-Type": "application/x-www-form-urlencoded",
-        charset: "utf-8"
+        charset: "utf-8",
       };
       axios
         .post(this.authEndpoint, qs.stringify(data), { headers })
@@ -156,11 +156,11 @@ export class Api {
     return new Promise((resolve, reject) => {
       const data = {
         client_id: this.clientId,
-        refresh_token: this.refresh
+        refresh_token: this.refresh,
       };
       const headers = {
         "Content-Type": "application/x-www-form-urlencoded",
-        charset: "utf-8"
+        charset: "utf-8",
       };
       axios
         .post(this.logoutEndpoint, qs.stringify(data), { headers })
@@ -178,8 +178,8 @@ export class Api {
       this.getToken()
         .then((token) =>
           axios.post(`${this.vouchersEndpoint}recepcion`, payload, {
-            headers: { Authorization: `bearer ${token}` }
-          })
+            headers: { Authorization: `bearer ${token}` },
+          }),
         )
         .then((response) => {
           resolve(response.data);
@@ -195,8 +195,8 @@ export class Api {
       this.getToken()
         .then((token) =>
           axios.get(`${this.vouchersEndpoint}recepcion/${key}`, {
-            headers: { Authorization: `bearer ${token}` }
-          })
+            headers: { Authorization: `bearer ${token}` },
+          }),
         )
         .then((response) => {
           resolve(response);

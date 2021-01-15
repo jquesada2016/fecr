@@ -11,7 +11,7 @@ import { Reference } from "../lib/fecr/voucher/reference";
 import { Summary } from "../lib/fecr/voucher/summary";
 
 /** @todo: need to cross verify with XSD document to guarantee the validity fields*/
-export type apiType = {
+export type api = {
   user: string;
   pass: string;
   environment: "stag" | "prod";
@@ -67,33 +67,55 @@ export type receiver = {
   email?: string;
 };
 
+/**
+ * @description This type refers to a reference document, and only
+ * in the context of a reference document. In other words,
+ * documentType, number, date, etc. refer to the document being
+ * referenced, not this document being issued.
+ */
 export type reference = {
+  /**
+   * @description The enum used for the document, such as "FE", "NC", etc.
+   */
   documentType: referenceDocumentType;
+  /**
+   * @description Corresponds to the document code consisting of 50
+   * characters.
+   */
   number?: string;
+  /**
+   * @description The formatted date
+   */
   date: string;
+  /**
+   * @description The code describing the purpose of the reference.
+   */
   code?: referenceCode;
+  /**
+   * @description A textual description of the purpose for this reference.
+   */
   reason?: string;
 };
 
 export type voucher = {
   cert: cert;
-  api: typeof Api;
+  api: Api;
   date: string;
-  issuer: typeof Issuer;
+  issuer: Issuer;
   headquarters: number;
   terminal: number;
-  number: number;
+  documentNumber: string;
   situation: documentSituation;
   activityCode: string;
   securityCode: string;
-  receiver: typeof Receiver;
-  condition: saleCondition;
+  receiver: Receiver;
+  saleCondition: saleCondition;
   paymentType: paymentType[];
   creditTerm?: string;
-  items?: typeof Item[];
+  items?: Item[];
   otherCharges?: otherCharges;
   summary: typeof Summary;
-  references?: typeof Reference;
+  references?: Reference[];
   others?: typeof Others;
   sequence?: string;
   key?: string;
@@ -118,6 +140,75 @@ export type summary = {
   IVAReturned?: number;
   otherChargesTotal?: number;
   netTotal: number;
+};
+
+export type issueDocument = {
+  /**
+   * @description Corresponds to the document code consisting of
+   * 50 characters in length.
+   */
+  code: string;
+
+  /**
+   * @description The sequence number of the issuing document.
+   * It is required that this number be 20 digits in length.
+   */
+  documentNumber: string;
+
+  /**
+   * @description API config object.
+   */
+  api: api;
+
+  /**
+   * @description Certificate object used for signing the document.
+   */
+  cert: cert;
+
+  /**
+   * @description The CAByS code identifying the economic activity.
+   */
+  activityCode: string;
+
+  /**
+   * @description Information describing the issuer.
+   */
+  issuer: issuer;
+
+  /**
+   * @description An array of items to be included in the receipt.
+   */
+  items: item[];
+
+  others: others;
+
+  /**
+   * @description Information describing the receiver.
+   */
+  receiver: receiver;
+
+  summary: summary;
+
+  /**
+   * @description Details regarding the terms of sale.
+   */
+  saleCondition: saleCondition;
+
+  /**
+   * @description The credit term.
+   */
+  creditTerm: string;
+
+  date: string;
+  headquarters: number;
+  terminal: number;
+  situation: documentSituation;
+  securityCode: string;
+  paymentType: paymentType[];
+  otherCharges?: otherCharges;
+  references?: Reference[];
+  sequence?: string;
+  key?: string;
 };
 
 /* ==============================================================================

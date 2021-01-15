@@ -1,20 +1,19 @@
-const xml2js = require('xml2js');
-const Invoice = require('./invoice.js');
-const DebitNote = require('./debitNote.js');
-const CreditNote = require('./creditNote.js');
-const Purchase = require('./purchase.js');
-const Ticket = require('./ticket.js');
-const TicketRS = require('./ticketRS.js');
-const Message = require('./message.js');
-const Issuer = require('./voucher/issuer.js');
-const Item = require('./voucher/item.js');
-const Others = require('./voucher/others.js');
-const Receiver = require('./voucher/receiver.js');
-const Reference = require('./voucher/reference.js');
-const Tax = require('./voucher/tax.js');
-const Api = require('./api.js');
-const utils = require('./utils.js');
-
+const xml2js = require("xml2js");
+const Invoice = require("./invoice.js");
+const DebitNote = require("./debitNote.js");
+const CreditNote = require("./creditNote.js");
+const Purchase = require("./purchase.js");
+const Ticket = require("./ticket.js");
+const TicketRS = require("./ticketRS.js");
+const Message = require("./message.js");
+const Issuer = require("./voucher/issuer.js");
+const Item = require("./voucher/item.js");
+const Others = require("./voucher/others.js");
+const Receiver = require("./voucher/receiver.js");
+const Reference = require("./voucher/reference.js");
+const Tax = require("./voucher/tax.js");
+const Api = require("./api.js");
+const utils = require("./utils.js");
 
 module.exports = {
   issueVoucher(obj) {
@@ -24,15 +23,23 @@ module.exports = {
       obj.items.forEach((item, index) => {
         const line = {};
         line.number = index + 1;
-        if (item.hsCode) { line.hsCode = item.hsCode; }
-        if (item.code) { line.code = item.code; }
+        if (item.hsCode) {
+          line.hsCode = item.hsCode;
+        }
+        if (item.code) {
+          line.code = item.code;
+        }
         if (item.commercialCode) {
-          line.typeCommercialCode = item.typeCommercialCode ? item.typeCommercialCode : '04';
+          line.typeCommercialCode = item.typeCommercialCode
+            ? item.typeCommercialCode
+            : "04";
           line.commercialCode = item.commercialCode;
         }
         line.quantity = item.quantity;
         line.unit = item.unit;
-        if (item.commercialUnit) { line.commercialUnit = item.commercialUnit; }
+        if (item.commercialUnit) {
+          line.commercialUnit = item.commercialUnit;
+        }
         line.description = item.description;
         line.unitPrice = utils.round10(item.unitPrice, -5);
         line.total = utils.round10(line.unitPrice * line.quantity, -5);
@@ -40,8 +47,12 @@ module.exports = {
           line.discount = utils.round10(item.discount);
           line.discountReason = item.discountReason;
         }
-        line.subtotal = line.discount ? utils.round10(line.total - line.discount) : line.total;
-        line.taxBase = line.taxBase ? utils.round10(item.taxBase, -5) : line.subtotal;
+        line.subtotal = line.discount
+          ? utils.round10(line.total - line.discount)
+          : line.total;
+        line.taxBase = line.taxBase
+          ? utils.round10(item.taxBase, -5)
+          : line.subtotal;
         let taxNet = 0;
         if (item.taxes) {
           const taxes = [];
@@ -51,34 +62,34 @@ module.exports = {
             let taxTotal = 0;
             const newTax = {};
             let rate = 0;
-            if (tax.code === '01' || tax.code === '07') {
+            if (tax.code === "01" || tax.code === "07") {
               switch (rateCode) {
-                case '01':
+                case "01":
                   rate = 0;
                   break;
-                case '02':
+                case "02":
                   rate = 1;
                   break;
-                case '03':
+                case "03":
                   rate = 2;
                   break;
-                case '04':
+                case "04":
                   rate = 4;
                   break;
-                case '05':
+                case "05":
                   rate = 0;
                   break;
-                case '06':
+                case "06":
                   rate = 4;
                   break;
-                case '07':
+                case "07":
                   rate = 8;
                   break;
-                case '08':
+                case "08":
                   rate = 13;
                   break;
                 default:
-                  rateCode = '08';
+                  rateCode = "08";
                   rate = 13;
                   break;
               }
@@ -88,7 +99,9 @@ module.exports = {
             taxFactor = rate / 100;
             taxTotal = utils.round10(line.taxBase * taxFactor, -5);
             newTax.code = tax.code;
-            if (rateCode) { newTax.rateCode = rateCode; }
+            if (rateCode) {
+              newTax.rateCode = rateCode;
+            }
             newTax.rate = rate;
             newTax.taxFactor = taxFactor;
             newTax.total = taxTotal;
@@ -105,15 +118,27 @@ module.exports = {
       data.activityCode = obj.activityCode;
       data.api = new Api(obj.api);
       data.cert = obj.cert;
-      if (obj.condition) { data.condition = obj.condition; }
-      if (obj.creditTerm) { data.creditTerm = obj.creditTerm; }
-      if (obj.headquarters) { data.headquarters = obj.headquarters; }
+      if (obj.condition) {
+        data.condition = obj.condition;
+      }
+      if (obj.creditTerm) {
+        data.creditTerm = obj.creditTerm;
+      }
+      if (obj.headquarters) {
+        data.headquarters = obj.headquarters;
+      }
       data.issuer = issuer;
       data.items = items;
-      if (obj.others) { data.others = new Others({ text: obj.others }); }
+      if (obj.others) {
+        data.others = new Others({ text: obj.others });
+      }
       data.number = obj.number;
-      if (obj.paymentType) { data.paymentType = obj.paymentType; }
-      if (obj.receiver) { data.receiver = new Receiver(obj.receiver); }
+      if (obj.paymentType) {
+        data.paymentType = obj.paymentType;
+      }
+      if (obj.receiver) {
+        data.receiver = new Receiver(obj.receiver);
+      }
       if (obj.references) {
         const references = [];
         obj.references.forEach((reference) => {
@@ -124,33 +149,38 @@ module.exports = {
       data.securityCode = obj.securityCode
         ? obj.securityCode
         : utils.zfill(Math.floor(Math.random() * 100000000), 8);
-      if (obj.situation) { data.situation = obj.situation; }
-      if (obj.terminal) { data.terminal = obj.terminal; }
+      if (obj.situation) {
+        data.situation = obj.situation;
+      }
+      if (obj.terminal) {
+        data.terminal = obj.terminal;
+      }
       let voucher;
       switch (obj.type) {
-        case 'FE':
+        case "FE":
           voucher = new Invoice(data);
           break;
-        case 'ND':
+        case "ND":
           voucher = new DebitNote(data);
           break;
-        case 'NC':
+        case "NC":
           voucher = new CreditNote(data);
           break;
-        case 'TE':
+        case "TE":
           voucher = new Ticket(data);
           break;
-        case 'FEC':
+        case "FEC":
           voucher = new Purchase(data);
           break;
-        case 'TRS':
+        case "TRS":
           voucher = new TicketRS(data);
           break;
         default:
           voucher = new Invoice(data);
           break;
       }
-      voucher.send()
+      voucher
+        .send()
         .then((dataVoucher) => {
           resolve(dataVoucher);
         })
@@ -181,7 +211,8 @@ module.exports = {
         headquarters: obj.headquarters,
         terminal: obj.terminal,
       });
-      message.send()
+      message
+        .send()
         .then((messageData) => {
           resolve(messageData);
         })
@@ -193,10 +224,22 @@ module.exports = {
   issueMessageFromXML(obj) {
     return new Promise((resolve, reject) => {
       const {
-        xml, base64, cert, api, message, details, taxCondition, number, headquarters, terminal,
+        xml,
+        base64,
+        cert,
+        api,
+        message,
+        details,
+        taxCondition,
+        number,
+        headquarters,
+        terminal,
       } = obj;
-      const stringXml = base64 ? Buffer.from(xml, 'base64').toString('utf8') : xml;
-      xml2js.parseStringPromise(stringXml)
+      const stringXml = base64
+        ? Buffer.from(xml, "base64").toString("utf8")
+        : xml;
+      xml2js
+        .parseStringPromise(stringXml)
         .then((result) => {
           const data = utils.parseVouchers(result);
           const msj = {
@@ -208,7 +251,7 @@ module.exports = {
             message,
             details,
             economicActivity: data.activityCode,
-            taxCondition: taxCondition || '01',
+            taxCondition: taxCondition || "01",
             tax: data.summary.taxTotal,
             total: data.summary.netTotal,
             number,
@@ -230,14 +273,26 @@ module.exports = {
   issueDebitFromXML(obj) {
     return new Promise((resolve, reject) => {
       const {
-        xml, base64, reason, number, headquarters, terminal, cert, api, securityCode, situation,
+        xml,
+        base64,
+        reason,
+        number,
+        headquarters,
+        terminal,
+        cert,
+        api,
+        securityCode,
+        situation,
       } = obj;
-      const stringXml = base64 ? Buffer.from(xml, 'base64').toString('utf8') : xml;
-      xml2js.parseStringPromise(stringXml)
+      const stringXml = base64
+        ? Buffer.from(xml, "base64").toString("utf8")
+        : xml;
+      xml2js
+        .parseStringPromise(stringXml)
         .then((result) => {
           const data = utils.parseVouchers(result);
           const debitNote = {
-            type: 'ND',
+            type: "ND",
             number,
             terminal,
             headquarters,
@@ -301,8 +356,8 @@ module.exports = {
             documentType: data.documentType,
             number: data.key,
             date: data.date,
-            code: '01',
-            reason: reason || 'Error en los montos',
+            code: "01",
+            reason: reason || "Error en los montos",
           });
           return this.issueVoucher(debitNote);
         })
@@ -317,14 +372,26 @@ module.exports = {
   issueCreditFromXML(obj) {
     return new Promise((resolve, reject) => {
       const {
-        xml, base64, reason, number, headquarters, terminal, cert, api, securityCode, situation,
+        xml,
+        base64,
+        reason,
+        number,
+        headquarters,
+        terminal,
+        cert,
+        api,
+        securityCode,
+        situation,
       } = obj;
-      const stringXml = base64 ? Buffer.from(xml, 'base64').toString('utf8') : xml;
-      xml2js.parseStringPromise(stringXml)
+      const stringXml = base64
+        ? Buffer.from(xml, "base64").toString("utf8")
+        : xml;
+      xml2js
+        .parseStringPromise(stringXml)
         .then((result) => {
           const data = utils.parseVouchers(result);
           const debitNote = {
-            type: 'NC',
+            type: "NC",
             number,
             terminal,
             headquarters,
@@ -388,8 +455,8 @@ module.exports = {
             documentType: data.documentType,
             number: data.key,
             date: data.date,
-            code: '01',
-            reason: reason || 'Error en los montos',
+            code: "01",
+            reason: reason || "Error en los montos",
           });
           return this.issueVoucher(debitNote);
         })

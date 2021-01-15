@@ -1,6 +1,6 @@
 import xml2js from "xml2js";
 import moment from "moment-timezone";
-import utils from "./utils";
+import { zfill } from "./utils";
 import { signXmlString } from "./signer";
 import { Summary } from "./voucher/summary";
 import {
@@ -29,7 +29,7 @@ export class Voucher {
     this.issuer = voucher.issuer;
     this.headquarters = voucher.headquarters ? voucher.headquarters : 1;
     this.terminal = voucher.terminal ? voucher.terminal : 1;
-    this.number = voucher.number;
+    this.documentNumber = voucher.documentNumber;
     this.situation = voucher.situation ? voucher.situation : "1";
     this.activityCode = voucher.activityCode;
     this.securityCode = voucher.securityCode;
@@ -66,7 +66,7 @@ export class Voucher {
   issuer: Issuer;
   headquarters: number;
   terminal: number;
-  number: number;
+  documentNumber: number;
   situation: documentSituation;
   activityCode: string;
   securityCode: string;
@@ -148,22 +148,22 @@ export class Voucher {
   }
 
   generateSequence() {
-    const headquarters = utils.zfill(this.headquarters, 3);
-    const terminal = utils.zfill(this.terminal, 5);
-    const type = utils.zfill(this.voucherType, 2);
-    const number = utils.zfill(this.number, 10);
+    const headquarters = zfill(this.headquarters, 3);
+    const terminal = zfill(this.terminal, 5);
+    const type = zfill(this.voucherType, 2);
+    const number = zfill(this.documentNumber, 10);
     this.sequence = headquarters + terminal + type + number;
   }
 
   generateKey() {
     const country = "506";
-    const day = utils.zfill(this.date.date(), 2);
-    const month = utils.zfill(this.date.month() + 1, 2);
-    const year = utils.zfill(this.date.year() - 2000, 2);
-    const idNumber = utils.zfill(this.issuer.id.Numero, 12);
+    const day = zfill(this.date.date(), 2);
+    const month = zfill(this.date.month() + 1, 2);
+    const year = zfill(this.date.year() - 2000, 2);
+    const idNumber = zfill(this.issuer.id.Numero, 12);
 
-    const type = utils.zfill(this.situation, 1);
-    const securityCode = utils.zfill(this.securityCode, 8);
+    const type = zfill(this.situation, 1);
+    const securityCode = zfill(this.securityCode, 8);
 
     this.key =
       country +
